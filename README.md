@@ -1,9 +1,11 @@
 # Road-Lane-Detection
 
 Input to the program
-	Collection of images inside a folder taken as input
+
+Collection of images inside a folder taken as input
 
 Output from the program
+
 Each image in the folder input to the program and then the program detect the road lanes of the input image.Then it will mark the 2 lane lines with vanishing point(with a circle at vanishing point)
 
 Implementation Process with functions explanation
@@ -23,7 +25,8 @@ Here, before apply the canny edge detection algorithm, I have used a GaussianBlu
 
 Code segment used:
 
-for i in range(rows):
+
+    for i in range(rows):
         for j in range(columns):
             if canny_filtered_image[i][j] > 20:
                 canny_filtered_image[i][j] = 255
@@ -39,11 +42,11 @@ Here, I have consider a selected region of each image to find the road lane near
 
 Code segment used:
 
-for i in range(300):
-        for j in range(350):
-            if canny_filtered_image[595 - i][350 + j] == 255:
-                lane_detect[595 - i][350 + j] = 255
-                break
+    for i in range(300):
+	   for j in range(350):
+		    if canny_filtered_image[595 - i][350 + j] == 255:
+			lane_detect[595 - i][350 + j] = 255
+			break
 
     for i in range(300):
         for j in range(350):
@@ -54,7 +57,9 @@ for i in range(300):
 4.	Using the edge pixels, apply the Hough transform to determine the two line models
 I have used an already available hough transform method to implement this
 Code segment used:
+
 lines = cv2.HoughLinesP(lane_detect_image, 2, np.pi / 180, 30, np.array([]), minLineLength=20, maxLineGap=80)
+
 5.	Draw two lines over the original road image. At the intersection of the lines, draw a circle which represents the vanishing point. Draw the two lines from the image border to the vanishing point
 
 I got the intersection of the 2 road lines using Point class and lineLineIntersection function.Then I have used the displayLines function to draw the lines in the original image(also the vanishing point circle draw using this function)
